@@ -32,12 +32,17 @@ $('#weather-form').on('submit', (evt) => {
 $("#order-form").on('submit', (evt) => {
   evt.preventDefault();
 
-  // TODO: create an object to store key-value pairs that'll be sent to
-  // the server
+  const formData = {
+    qty: $('#qty-field').val(),
+    melonType: $('#melon-type-field').val()
+  };
 
   // TODO: make a request to /order-melons
   //
   // In the callback function, use the response from the server to
   // update #order-status. IMPORTANT: if the result code is 'ERROR',
   // make it show up in red.
+  $.post('/order-melons', formData, (response) => {
+    $('#order-status').html(`${response.code} ${response.msg}`);
+  });
 });
